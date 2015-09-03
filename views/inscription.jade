@@ -1,0 +1,15 @@
+extends layout
+
+block content
+ 
+  h1= exo
+  p Bienvenue #{exo}
+
+  form(action='/', method='post')
+    label Nom
+    input(type='text', nom='nom')
+    label Prénom	
+    input(type='text',prenom='prenom')
+    label Email	
+    input(type='text',email='email')
+    input(type='submit', value='envoyer',method='post')
