@@ -14,8 +14,10 @@ app.use('/public', express.static('public'));
 
 
 // Database
+
 var connection = mysql.createConnection({
   host     : 'localhost',
+  port     : '3000',
   user     : 'root',
   password : 'sandrine140271',
   database : 'mydb'
@@ -24,13 +26,14 @@ var connection = mysql.createConnection({
 connection.connect();
 
 connection.query('SELECT Id, nom, prenom, email from inscrit', function(err, rows, fields) {
+  console.log("blocage");
   if (err) throw err;
 });
 
 connection.end();
 
 
-// Models
+// // Models
 
 
 
