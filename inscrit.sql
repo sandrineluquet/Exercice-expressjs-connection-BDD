@@ -1,0 +1,8 @@
+CREATE TABLE 'inscrit'()
+ 'Id'int(5)NOT NULL AUTO_INCREMENT
+ 'nom' varchar(50)DEFAULT NULL,
+ 'prenom'varchar(50)DEFAULT NULL,
+ 'email'varchar(150)DEFAULT NULL,
+ PRIMARY KEY ('Id')
+ ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
+
