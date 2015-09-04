@@ -1,33 +1,33 @@
-var express = require('express');
+var express    = require('express');
 var bodyParser = require('body-parser');
-var app =express();
+var path       = require('path');
+var mysql      = require('mysql');
 
+var app        = express();
+
+
+// Config
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine','jade');
 
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static('public'));
 
 
-app.post('/inscription', function(req, res){
+// Routes
+app.get('/', function(req,res){
+  res.render('inscription');
+});
+app.post('/', function(req,res){
   new Inscription({
-    nom         : req.body.nom_enfant,
-    prenom      : req.body.prenom_enfant,
-    email       : req.body.age,
+    nom         : req.body.nom,
+    prenom      : req.body.prenom,
+    email       : req.body.email,
   });
-  res.send('inscrit')
+  res.render('inscription');
 });
 
 
-app.get('/inscription', function(req, res){
-  res.render('inscription')
-});
-
-module.exports = app;
-
-var mysql= require('mysql');
+// Database
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -39,18 +39,9 @@ connection.connect();
 
 connection.query('SELECT Id, nom, prenom, email from inscrit', function(err, rows, fields) {
   if (err) throw err;
-  console.log('The solution is: ', rows[0].solution);
 });
 
 connection.end();
 
 app.listen(3000);
-
-
-// var server = app.listen(3000, function () {
-//   var host = server.address().address;
-//   var port = server.address().port;
-
-//   console.log('Example app listening at http://%s:%s', host, port);
-// });
-
+console.log("App démarrée à l'adresse http://localhost:3000");
