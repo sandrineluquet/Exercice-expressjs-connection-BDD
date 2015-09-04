@@ -13,20 +13,6 @@ app.set('view engine','jade');
 app.use('/public', express.static('public'));
 
 
-// Routes
-app.get('/', function(req,res){
-  res.render('inscription');
-});
-app.post('/', function(req,res){
-  new Inscription({
-    nom         : req.body.nom,
-    prenom      : req.body.prenom,
-    email       : req.body.email,
-  });
-  res.render('inscription');
-});
-
-
 // Database
 var connection = mysql.createConnection({
   host     : 'localhost',
@@ -43,5 +29,25 @@ connection.query('SELECT Id, nom, prenom, email from inscrit', function(err, row
 
 connection.end();
 
+
+// Models
+
+
+
+// Routes
+app.get('/', function(req,res){
+  res.render('inscription');
+});
+app.post('/', function(req,res){
+  new Inscription({
+    nom         : req.body.nom,
+    prenom      : req.body.prenom,
+    email       : req.body.email,
+  });
+  res.render('inscription');
+});
+
+
+// Serveur
 app.listen(3000);
 console.log("App démarrée à l'adresse http://localhost:3000");
